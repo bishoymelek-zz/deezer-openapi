@@ -80,6 +80,34 @@ exports.GenreApiFetchParamCreator = function (configuration) {
     return {
         /**
          *
+         * @summary Get list of artits for a genre
+         * @param {string} id id of genre
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGenreArtistsList: function (id, options) {
+            if (options === void 0) { options = {}; }
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling getGenreArtistsList.');
+            }
+            var localVarPath = "/genre/{id}/artists"
+                .replace("{" + "id" + "}", encodeURIComponent(String(id)));
+            var localVarUrlObj = url.parse(localVarPath, true);
+            var localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+            var localVarHeaderParameter = {};
+            var localVarQueryParameter = {};
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
          * @summary Get list of genres
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -108,6 +136,28 @@ exports.GenreApiFetchParamCreator = function (configuration) {
  */
 exports.GenreApiFp = function (configuration) {
     return {
+        /**
+         *
+         * @summary Get list of artits for a genre
+         * @param {string} id id of genre
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGenreArtistsList: function (id, options) {
+            var localVarFetchArgs = exports.GenreApiFetchParamCreator(configuration).getGenreArtistsList(id, options);
+            return function (fetch, basePath) {
+                if (fetch === void 0) { fetch = portableFetch; }
+                if (basePath === void 0) { basePath = BASE_PATH; }
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(function (response) {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response;
+                    }
+                    else {
+                        throw response;
+                    }
+                });
+            };
+        },
         /**
          *
          * @summary Get list of genres
@@ -139,6 +189,16 @@ exports.GenreApiFactory = function (configuration, fetch, basePath) {
     return {
         /**
          *
+         * @summary Get list of artits for a genre
+         * @param {string} id id of genre
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGenreArtistsList: function (id, options) {
+            return exports.GenreApiFp(configuration).getGenreArtistsList(id, options)(fetch, basePath);
+        },
+        /**
+         *
          * @summary Get list of genres
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -159,6 +219,17 @@ var GenreApi = /** @class */ (function (_super) {
     function GenreApi() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     *
+     * @summary Get list of artits for a genre
+     * @param {string} id id of genre
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GenreApi
+     */
+    GenreApi.prototype.getGenreArtistsList = function (id, options) {
+        return exports.GenreApiFp(this.configuration).getGenreArtistsList(id, options)(this.fetch, this.basePath);
+    };
     /**
      *
      * @summary Get list of genres

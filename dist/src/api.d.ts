@@ -86,6 +86,14 @@ export interface Credentials {
 export declare const GenreApiFetchParamCreator: (configuration?: Configuration) => {
     /**
      *
+     * @summary Get list of artits for a genre
+     * @param {string} id id of genre
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getGenreArtistsList(id: string, options?: any): FetchArgs;
+    /**
+     *
      * @summary Get list of genres
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -97,6 +105,14 @@ export declare const GenreApiFetchParamCreator: (configuration?: Configuration) 
  * @export
  */
 export declare const GenreApiFp: (configuration?: Configuration) => {
+    /**
+     *
+     * @summary Get list of artits for a genre
+     * @param {string} id id of genre
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getGenreArtistsList(id: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response>;
     /**
      *
      * @summary Get list of genres
@@ -112,6 +128,14 @@ export declare const GenreApiFp: (configuration?: Configuration) => {
 export declare const GenreApiFactory: (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) => {
     /**
      *
+     * @summary Get list of artits for a genre
+     * @param {string} id id of genre
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getGenreArtistsList(id: string, options?: any): Promise<Response>;
+    /**
+     *
      * @summary Get list of genres
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -125,6 +149,15 @@ export declare const GenreApiFactory: (configuration?: Configuration, fetch?: Fe
  * @extends {BaseAPI}
  */
 export declare class GenreApi extends BaseAPI {
+    /**
+     *
+     * @summary Get list of artits for a genre
+     * @param {string} id id of genre
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GenreApi
+     */
+    getGenreArtistsList(id: string, options?: any): Promise<Response>;
     /**
      *
      * @summary Get list of genres
